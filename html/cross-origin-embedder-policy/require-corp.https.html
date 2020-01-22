@@ -131,4 +131,9 @@ promise_test(async t => {
 promise_test(t => {
   return promise_rejects(t, new TypeError(), fetch(get_host_info().HTTPS_REMOTE_ORIGIN+"/common/blank.html", {mode: "no-cors"}));
 }, `"require-corp" top-level: fetch() to response without CORP should fail`);
+
+promise_test(t => {
+  const w = window.open('about:blank');
+  return promise_rejects(t, new TypeError(), w.fetch(get_host_info().HTTPS_REMOTE_ORIGIN+"/common/blank.html", {mode: "no-cors"}));
+}, `"require-corp" top-level: fetch() to response without CORP through a WindowProxy should fail`);
 </script>
